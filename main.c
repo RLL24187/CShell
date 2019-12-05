@@ -7,29 +7,38 @@
 // #include <sys/stat.h>
 // #include <time.h>
 // #include <dirent.h>
+#include "shell.h"
 
 int main(){
 
-  char * line = strdup("ls -a -l");
+  char line[100] = "ls -l -a -r";
+  char * separator;
+  char ** args;
+  // int f = fork();
+  // if (f){
 
-  printf("Testing parse_args (run 'ls -a -l'):\n");
+    // line 
+    separator = " ";
 
-  char ** args = parse_args( line );
+    printf("Testing parse_args (run 'ls -l -a -r'):\n");
 
-  execvp(args[0], args);
+    args = parse_args( line , separator, count_tokens(line, separator));
 
+    execvp(args[0], args);
+    return 0;
+  // }
+  // else{
 
+    // line = strdup("ls -a -l -r");
+    // strcpy(temp, line);
+    // printf("Testing parse_args (run 'ls -a -l -r')\n");
+    //
+    // args = parse_args( line , count_tokens(temp));
+    //
+    // execvp(args[0], args);
+    // return 0;
+  // }
+  // return 0;
 
-  // 5 args (max)
-
-  // char * line = strdup("ls -a -l -r");
-  //
-  // printf("Testing parse_args (run ls -a -l -r)\n");
-  //
-  // char ** args = parse_args( line );
-  //
-  // execvp(args[0], args);
-
-  return 0;
 
 }
