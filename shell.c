@@ -15,15 +15,15 @@
 // You can limit piping (|) to a single pipe.
 
 int count_tokens( char * line , char * separator){
-  char * curr = &line[0];
+  // char * p = line;
   // char * token;
   int count = 0;
-  int i = 1;
-  while (curr){
-    if (!strcmp(curr,separator)){
+  int i = 0;
+  while (line[i]){
+    if (!strcmp(line[i],separator)){
       count++;
     }
-    curr = &line[i];
+    // curr = &line[i];
     i++;
     // token = strsep(&curr, separator);
   }
