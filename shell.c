@@ -1,12 +1,12 @@
-// #include <fcntl.h>
+#include <fcntl.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-// #include <errno.h>
+#include <errno.h>
 #include <unistd.h>
-// #include <sys/stat.h>
-// #include <time.h>
-// #include <dirent.h>
+#include <sys/stat.h>
+#include <time.h>
+#include <dirent.h>
 
 // Try starting with these restrictions on input:
 // To make your life easier, you could require that all items on the command line are to be separated by a single space.
@@ -64,6 +64,5 @@ char ** parse_args( char * line , char * separator, int size ){
     printf("iteration %d | curr: %s | token: %s\n", i, curr, token);
     i++;
   }
-  // pointers[i] = NULL;
   return pointers;
 }
