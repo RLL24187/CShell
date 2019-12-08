@@ -15,22 +15,31 @@
 // You can limit piping (|) to a single pipe.
 
 int count_tokens( char * line , char * separator){
+  int i, count;
   char * p;
   char c;
-  // char * token;
-  int count = 0;
-  int i = 0;
-  while (line[i]){
+  for (i=0, count=0; str[i]; i++){
     c = (line + i)[0];
     p = &c;
-    printf("p : '%s' | c: '%c' |separator: '%s'\n", p, c, separator);
-    printf("%d\n", strcmp(p, separator));
     if (!strcmp(p,separator)){
       printf("\tGot it! p : '%s' | c: '%c' |separator: '%s'\n", p, c, separator);
       count++;
     }
-    i++;
   }
+  // char * token;
+  // int count = 0;
+  // int i = 0;
+  // while (line[i]){
+    // c = (line + i)[0];
+    // p = &c;
+  //   printf("p : '%s' | c: '%c' |separator: '%s'\n", p, c, separator);
+  //   printf("%d\n", strcmp(p, separator));
+    // if (!strcmp(p,separator)){
+    //   printf("\tGot it! p : '%s' | c: '%c' |separator: '%s'\n", p, c, separator);
+    //   count++;
+    // }
+  //   i++;
+  // }
   return count;
 }
 char ** parse_args( char * line , char * separator, int size ){
