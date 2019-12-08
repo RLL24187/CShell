@@ -32,7 +32,7 @@ int main(){
     line = "ls -l -a -r";
     printf("Testing parse_args (run 'ls -a -l -r')\n");
 
-    args = parse_args( line , separator, count_tokens(temp, separator));
+    args = parse_args( line , separator, count_tokens(line, separator));
 
     execvp(args[0], args);
     return 0;
