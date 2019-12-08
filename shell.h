@@ -1,2 +1,2 @@
-int count_tokens(char * line, char * separator);
-char ** parse_args( char * line , char * separator, int size);
+int count_tokens(char * line, char separator);
+char ** parse_args( char * line , char separator, int size);

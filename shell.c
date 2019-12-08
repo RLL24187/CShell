@@ -14,15 +14,16 @@
 // You can restrict the locations and ordering of > and <.
 // You can limit piping (|) to a single pipe.
 
-int count_tokens( char * line , char * separator){
+int count_tokens( char * line , char separator){
   int i, count;
-  char * p;
+  // char * p;
   char c;
   for (i=0, count=0; line[i]; i++){
     c = (line + i)[0];
-    p = &c;
+    // p = &c;
     printf("p : '%s' | c: '%c' |separator: '%s'\n", p, c, separator);
-    if (!strcmp(p,separator)){
+    // if (!strcmp(p,separator)){
+    if (c == separator){
       printf("\tGot it! p : '%s' | c: '%c' |separator: '%s'\n", p, c, separator);
       count++;
     }
@@ -43,7 +44,7 @@ int count_tokens( char * line , char * separator){
   // }
   return count;
 }
-char ** parse_args( char * line , char * separator, int size ){
+char ** parse_args( char * line , char separator, int size ){
   char * curr = line;
   char * token;
   printf("line: %s\n", line);

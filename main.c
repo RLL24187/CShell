@@ -12,7 +12,8 @@
 int main(){
 
   char line[100];
-  char * separator;
+  // char * separator;
+  char separator = ' ';
   char ** args;
   // int f = fork();
   // if (f){
@@ -37,7 +38,7 @@ int main(){
   //   execvp(args[0], args);
   //   return 0;
   // }
-  separator = " ";
+  // separator = " ";
   strcpy(line, "ls -l -a");
   printf("Testing parse_args (run '%s'):\n", line);
 
