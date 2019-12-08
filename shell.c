@@ -21,6 +21,7 @@ int count_tokens( char * line , char * separator){
   for (i=0, count=0; line[i]; i++){
     c = (line + i)[0];
     p = &c;
+    printf("p : '%s' | c: '%c' |separator: '%s'\n", p, c, separator);
     if (!strcmp(p,separator)){
       printf("\tGot it! p : '%s' | c: '%c' |separator: '%s'\n", p, c, separator);
       count++;
@@ -32,7 +33,7 @@ int count_tokens( char * line , char * separator){
   // while (line[i]){
     // c = (line + i)[0];
     // p = &c;
-  //   printf("p : '%s' | c: '%c' |separator: '%s'\n", p, c, separator);
+    // printf("p : '%s' | c: '%c' |separator: '%s'\n", p, c, separator);
   //   printf("%d\n", strcmp(p, separator));
     // if (!strcmp(p,separator)){
     //   printf("\tGot it! p : '%s' | c: '%c' |separator: '%s'\n", p, c, separator);
