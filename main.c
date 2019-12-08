@@ -18,15 +18,15 @@ int main(){
   separator = " ";
   while (1){
 
-    printf("shell $: \n");
+    puts("shell $: \n");
     fgets(line, 100, stdin); //adds a newline to the end of line
-    if (line[strlen(line) - 2] != '/'){
-      line[strlen(line) - 1] = '/';
-      line[strlen(line)] = '\0';
-    }
-    else{
-      line[strlen(line) - 1] = '\0';
-    }
+    // if (line[strlen(line) - 2] != '/'){
+    //   line[strlen(line) - 1] = '/';
+    //   line[strlen(line)] = '\0';
+    // }
+    // else{
+    //   line[strlen(line) - 1] = '\0';
+    // }
     args = parse_args(line, separator, count_tokens(line, separator));
     execArgs(args);
   }
