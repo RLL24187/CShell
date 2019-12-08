@@ -20,12 +20,11 @@ int count_tokens( char * line , char * separator){
   int count = 0;
   int i = 0;
   while (p[i]){
+    printf("p[i]: %s, separator: %s\n", p[i], separator);
     if (!strcmp(&p[i],separator)){
       count++;
     }
-    // curr = &line[i];
     i++;
-    // token = strsep(&curr, separator);
   }
   return count;
 }
@@ -35,7 +34,7 @@ char ** parse_args( char * line , char * separator, int size ){
   char * token;
   char ** pointers = malloc((size + 1) * sizeof(char *)); //allocate memory for 5 pointers (b/c at most 5 args) + make room for NULL
   int i = 0;
-  printf("%d\n", size);
+  printf("size line: %d\n", size);
   while (curr){
     printf("iteration %d | curr: %s | token: %s\n", i, curr, token);
     // pointers[i] = malloc(strlen(line)+1);    // allocate desired memory to each pointer
