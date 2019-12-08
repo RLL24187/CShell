@@ -14,10 +14,10 @@ int main(){
   char line[100] = "ls -l -a -r";
   char * separator;
   char ** args;
-  // int f = fork();
-  // if (f){
+  int f = fork();
+  if (f){
 
-    // line 
+    // line
     separator = " ";
 
     printf("Testing parse_args (run 'ls -l -a -r'):\n");
@@ -27,17 +27,17 @@ int main(){
     execvp(args[0], args);
     return 0;
   // }
-  // else{
+  else{
 
-    // line = strdup("ls -a -l -r");
-    // strcpy(temp, line);
-    // printf("Testing parse_args (run 'ls -a -l -r')\n");
-    //
-    // args = parse_args( line , count_tokens(temp));
-    //
-    // execvp(args[0], args);
-    // return 0;
-  // }
+    line = strdup("ls -a -l -r");
+    strcpy(temp, line);
+    printf("Testing parse_args (run 'ls -a -l -r')\n");
+
+    args = parse_args( line , count_tokens(temp));
+
+    execvp(args[0], args);
+    return 0;
+  }
   // return 0;
 
 
