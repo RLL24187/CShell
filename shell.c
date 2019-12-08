@@ -20,7 +20,7 @@ int count_tokens( char * line , char * separator){
   int count = 0;
   int i = 0;
   while (line[i]){
-    *p = (line+ i)[0];
+    p = &(line+ i)[0];
     printf("p : '%s' | line[i]: '%c' |separator: '%s'\n", p, line[i], separator);
     if (!strcmp(p,separator)){
       count++;
