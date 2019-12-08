@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-// #include <errno.h>
+#include <errno.h>
 #include <unistd.h>
 // #include <sys/stat.h>
 // #include <time.h>
@@ -44,7 +44,7 @@ int main(){
   args = parse_args( line , separator, count_tokens(line, separator));
 
   execvp(args[0], args);
-  return 0;
+  printf("exec failed: %s\n", strerror(errno));
   return 0;
 
 
