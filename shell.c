@@ -16,11 +16,13 @@
 
 int count_tokens( char * line , char * separator){
   char * p;
+  char c;
   // char * token;
   int count = 0;
   int i = 0;
   while (line[i]){
-    p = &(line+ i)[0];
+    c = (line+ i)[0];
+    p = &c;
     printf("p : '%s' | line[i]: '%c' |separator: '%s'\n", p, line[i], separator);
     if (!strcmp(p,separator)){
       count++;
