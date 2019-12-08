@@ -18,7 +18,10 @@ int count_tokens( char * line , char * separator){
   int i, count;
   // char * p;
   char c;
-  for (i=0, count=0; line[i]; i++){
+  if (line){
+    count = 1;
+  }
+  for (i=0; line[i]; i++){
     c = (line + i)[0];
     // p = &c;
     printf("c: '%c' |separator: '%s'\n",  c, separator);
@@ -61,6 +64,6 @@ char ** parse_args( char * line , char * separator, int size ){
     printf("iteration %d | curr: %s | token: %s\n", i, curr, token);
     i++;
   }
-  pointers[i] = NULL;
+  // pointers[i] = NULL;
   return pointers;
 }
