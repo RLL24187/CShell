@@ -26,7 +26,7 @@ int main(){
 
     execvp(args[0], args);
     return 0;
-  // }
+  }
   else{
 
     strcpy(line, "ls -l -a -r");
