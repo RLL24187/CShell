@@ -15,7 +15,7 @@
 // You can limit piping (|) to a single pipe.
 
 int count_tokens( char * line , char * separator){
-  char * p = line;
+  char * p;
   // char * token;
   int count = 0;
   int i = 0;
