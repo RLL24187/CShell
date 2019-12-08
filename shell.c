@@ -61,5 +61,6 @@ char ** parse_args( char * line , char * separator, int size ){
     printf("iteration %d | curr: %s | token: %s\n", i, curr, token);
     i++;
   }
+  pointers[i] = NULL;
   return pointers;
 }
