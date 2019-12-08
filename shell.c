@@ -19,9 +19,10 @@ int count_tokens( char * line , char * separator){
   // char * token;
   int count = 0;
   int i = 0;
-  while (p[i]){
-    printf("p[i]: '%s', separator: '%s'\n", &(p+i)[0], separator);
-    if (!strcmp(&(p+i)[0],separator)){
+  while (line[i]){
+    p = &line[i];
+    printf("p or line[i]: '%s', separator: '%s'\n", p, separator);
+    if (!strcmp(p,separator)){
       count++;
     }
     i++;
