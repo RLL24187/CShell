@@ -19,7 +19,7 @@ int main(){
 
     // line
     separator = " ";
-    line = "ls -l -a";
+    strcpy(line, "ls -l -a");
     printf("Testing parse_args (run 'ls -l -a -r'):\n");
 
     args = parse_args( line , separator, count_tokens(line, separator));
@@ -29,7 +29,7 @@ int main(){
   // }
   else{
 
-    line = "ls -l -a -r";
+    strcpy(line, "ls -l -a -r");
     printf("Testing parse_args (run 'ls -a -l -r')\n");
 
     args = parse_args( line , separator, count_tokens(line, separator));
