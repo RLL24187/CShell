@@ -18,7 +18,7 @@ int count_tokens( char * line , char * separator){
   int i, count;
   char * p;
   char c;
-  for (i=0, count=0; str[i]; i++){
+  for (i=0, count=0; line[i]; i++){
     c = (line + i)[0];
     p = &c;
     if (!strcmp(p,separator)){
