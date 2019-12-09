@@ -5,6 +5,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 #include <time.h>
 #include <dirent.h>
 #include "shell.h"
@@ -18,7 +19,7 @@ int main(){
   separator = " ";
   while (1){
 
-    puts("shell $: \n");
+    printf("shell $: ");
     fgets(line, 200, stdin); //adds a newline to the end of line
     // if (line[strlen(line) - 2] != '/'){
     //   line[strlen(line) - 1] = '/';
