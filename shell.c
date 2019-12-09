@@ -5,6 +5,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 #include <time.h>
 #include <dirent.h>
 
@@ -14,6 +15,7 @@
 // You can restrict the locations and ordering of > and <.
 // You can limit piping (|) to a single pipe.
 
+// counts tokens given a line and separator
 int count_tokens( char * line , char * separator){
   int i, count;
   // char * p;
@@ -33,6 +35,8 @@ int count_tokens( char * line , char * separator){
   }
   return count;
 }
+
+// parses the args
 char ** parse_args( char * line , char * separator, int size ){
   char * curr = line;
   char * token;
@@ -52,24 +56,38 @@ char ** parse_args( char * line , char * separator, int size ){
   }
   return pointers;
 }
-// Function where the system command is executed
-void execArgs(char** args)
-{
-    // make the child process
-    int pid = fork();
 
-    if (pid < 0) {
-        printf("\nFailed forking child..");
-        printf("exec failed: %s\n", strerror(errno));
+// Function where the system command is executed
+void execArgs(char** args){
+    // make the child process
+    int child;
+    int status;
+
+    int f = fork();
+
+    if (f < 0) {
+        printf("Failed forking child: %s\n", strerror(errno));
         return;
-    } else if (pid == 0) {
-        if (execvp(args[0], args) < 0) { 
-            printf("exec failed: %s\n", strerror(errno));
+    } else if (f == 0) { //child
+        if (execvp(args[0], args) < 0) {
+          printf("Failed executing child: %s\n", strerror(errno));
         }
-        exit(0);
-    } else {
-        // wait(NULL) waits for the child process to end before parent
-        wait(NULL);
+        printf("child || pid: %d | f: %d | parent: %d\n", getpid(), f, getppid());
+        return;
+    } else { //parent
+        child = wait(&status);
+
+        if ( WIFEXITED(status) )
+        {
+            printf("Exit status of the child was %d\n", WEXITSTATUS(status));
+        }
+        printf("parent || wait returned: %d | status: %d | real return value: %d\n", child, status, WEXITSTATUS(status));
         return;
     }
 }
+
+// Read a line at a time, parse the line to separate the command from its arguments.
+// It should then fork and exec the command. The parent process should wait until the exec'd program exits and then it
+// should read the next command.
+// Note: exit and cd cannot be run through a forked child process, you will have to implement these commands on your own.
+        // check out the chdir() function
