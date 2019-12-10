@@ -49,7 +49,7 @@ char ** parse_args( char * line , char * separator, int size ){
     // printf("iteration %d | curr: %s | token: %s\n", i, curr, token);
     // pointers[i] = malloc(strlen(line)+1);    // allocate desired memory to each pointer
     token = strsep(&curr, separator);
-    // printf("token: %s |curr: %s\n", token, curr);
+    printf("token: %s |curr: %s\n", token, curr);
     // Returns the beginning of the original string,
     // sets source to the string starting at 1 index past the location of the new NULL
     pointers[i] = token;
