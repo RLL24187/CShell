@@ -59,6 +59,9 @@ char ** parse_args( char * line , char * separator, int size ){
       token = strsep(&curr, separator); //takes next arg for cd
       pointers[i] = token;
       chdir(token);
+      if (errno < 0){
+        printf("Failed chdir %s\n", strerror(errno));
+      }
     } else if (!strcmp(token, "exit")){
       exit(0); //for some reason, this only exits if you remain in the current directory
     }
