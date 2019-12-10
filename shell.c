@@ -39,7 +39,7 @@ int count_tokens( char * line , char * separator){
 // parses the args
 char ** parse_args( char * line , char * separator, int size ){
   char * curr = line;
-  char * temp;
+  char * token;
   char s[100]; //to print working directory
   // printf("line: %s\n", line);
   // printf("size line: %d\n", size);
