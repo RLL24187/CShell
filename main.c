@@ -5,6 +5,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 #include <time.h>
 #include <dirent.h>
 #include "shell.h"
@@ -13,12 +14,12 @@ int main(){
 
   char line[200];
   char path[200];
-  char * separator;
+  // char * separator;
   char ** args;
-  separator = " ";
+  // separator = " ";
   while (1){
 
-    puts("shell $: \n");
+    printf("shell $: ");
     fgets(line, 200, stdin); //adds a newline to the end of line
     // if (line[strlen(line) - 2] != '/'){
     //   line[strlen(line) - 1] = '/';
@@ -29,7 +30,7 @@ int main(){
     // }
     line[strlen(line) - 1] = '\0';
     // args = parse_args(line, separator, count_tokens(line, separator));
-    args = parse_args(line, separator, count_tokens(line, separator));
+    args = parse_args(line, " ", count_tokens(line, " "));
     execArgs(args);
   }
   // if (!pid){ //child process

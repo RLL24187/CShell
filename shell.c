@@ -39,10 +39,8 @@ int count_tokens( char * line , char * separator){
 // parses the args
 char ** parse_args( char * line , char * separator, int size ){
   char * curr = line;
-  char * token;
   char * temp;
   char s[100]; //to print working directory
-  strcpy(temp, "cd");
   // printf("line: %s\n", line);
   // printf("size line: %d\n", size);
   char ** pointers = malloc((size + 1) * sizeof(char *)); //allocate memory for 5 pointers (b/c at most 5 args) + make room for NULL
@@ -63,7 +61,7 @@ char ** parse_args( char * line , char * separator, int size ){
     // Returns the beginning of the original string,
     // sets source to the string starting at 1 index past the location of the new NULL
     pointers[i] = token;
-    // printf("iteration %d | curr: %s | token: %s\n", i, curr, token);
+    printf("iteration %d | curr: %s | token: %s\n", i, curr, token);
     i++;
   }
   return pointers;
