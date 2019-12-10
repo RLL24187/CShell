@@ -40,8 +40,6 @@ int count_tokens( char * line , char * separator){
 char ** parse_args( char * line , char * separator, int size ){
   char * curr = line;
   char * token;
-  char * emptystr = "";
-  printf("emptystr: '%s'\n", emptystr );
   char s[100]; //to print working directory
   // printf("line: %s\n", line);
   // printf("size line: %d\n", size);
@@ -54,7 +52,7 @@ char ** parse_args( char * line , char * separator, int size ){
     printf("\t\t\ttoken: %s |curr: %s\n", token, curr);
     // Returns the beginning of the original string,
     // sets source to the string starting at 1 index past the location of the new NULL
-    if (strcmp(token, emptystr)){
+    if (strcmp(token, "")){
       printf("\t\t\t\tAdding token: '%s'\n", token);
       pointers[i] = token;
       i++;
