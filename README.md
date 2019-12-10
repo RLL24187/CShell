@@ -24,9 +24,12 @@ check out the chdir() function
 3. This project should use separate C files as necessary.
 4. The project should be built using make and a makefile, I will only compile by using make.
 </br>
-Try starting with these restrictions on input:
+
+Try starting with these restrictions on input: <br>
 1. To make your life easier, you could require that all items on the command line are to be separated by a single space.
 2. When parsing the line, it might help to count the number of tokens (individual pieces), before parsing.
 3. You can restrict the locations and ordering of > and <.
 4. You can limit piping (|) to a single pipe.
 If you would like to implement other features after getting these ones down, please do. Look at what bash does and see what else you can do!
+
+#Instructions
