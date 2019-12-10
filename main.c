@@ -13,9 +13,9 @@ int main(){
 
   char line[200];
   char path[200];
-  char * separator;
+  // char * separator;
   char ** args;
-  separator = " ";
+  // separator = " ";
   while (1){
 
     puts("shell $: \n");
@@ -28,7 +28,8 @@ int main(){
       // line[strlen(line) - 1] = '\0';
     // }
     line[strlen(line) - 1] = '\0';
-    args = parse_args(line, separator, count_tokens(line, separator));
+    // args = parse_args(line, separator, count_tokens(line, separator));
+    args = parse_args(line, " ", count_tokens(line, " "));
     execArgs(args);
   }
   // if (!pid){ //child process
