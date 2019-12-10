@@ -32,4 +32,4 @@ Try starting with these restrictions on input: <br>
 4. You can limit piping (|) to a single pipe.
 If you would like to implement other features after getting these ones down, please do. Look at what bash does and see what else you can do!
 
-#Instructions
+# Instructions
