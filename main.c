@@ -26,7 +26,7 @@ int main(){
     // parse using ;
     semiargs = parse_args(line, ";", count_tokens(line, ";"));
     int i = 0;
-    while (args[i]){
+    while (semiargs[i]){
       args = parse_args(semiargs[i], " ", count_tokens(semiargs[i], " ")); //parses based on spaces
       execArgs(args);
       i++;
