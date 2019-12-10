@@ -51,8 +51,8 @@ char ** parse_args( char * line , char * separator, int size ){
     // printf("iteration %d | curr: %s | token: %s\n", i, curr, token);
     // pointers[i] = malloc(strlen(line)+1);    // allocate desired memory to each pointer
     token = strsep(&curr, separator);
-    printf("token: %s |curr: %s\n", token, curr);
-    // if (strcmp(token, "cd")){
+    // printf("token: %s |curr: %s\n", token, curr);
+    // if (!strcmp(token, "cd")){
     //   // printing current working directory
     //   printf("%s\n", getcwd(s, 100));
     //   token = strsep(&curr, separator); //takes next arg for cd
