@@ -40,6 +40,8 @@ int count_tokens( char * line , char * separator){
 char ** parse_args( char * line , char * separator, int size ){
   char * curr = line;
   char * token;
+  char * emptystr = "";
+  printf("emptystr: '%s'\n", emptystr );
   char s[100]; //to print working directory
   // printf("line: %s\n", line);
   // printf("size line: %d\n", size);
@@ -52,14 +54,17 @@ char ** parse_args( char * line , char * separator, int size ){
     printf("\t\t\ttoken: %s |curr: %s\n", token, curr);
     // Returns the beginning of the original string,
     // sets source to the string starting at 1 index past the location of the new NULL
-    if (!strcmp(token, " ")){
+    if (strcmp(token, emptystr)){
+      printf("\t\t\t\tAdding token: '%s'\n", token);
       pointers[i] = token;
+      i++;
     }
     if (!strcmp(token, "cd")){
       // printing current working directory
       printf("%s\n", getcwd(s, 100));
       token = strsep(&curr, separator); //takes next arg for cd
       pointers[i] = token;
+      i++;
       chdir(token);
       if (errno < 0){
         printf("Failed chdir %s\n", strerror(errno));
@@ -70,7 +75,7 @@ char ** parse_args( char * line , char * separator, int size ){
       exit(0); //for some reason, this only exits if you remain in the current directory
     }
     // printf("iteration %d | curr: %s | token: %s\n", i, curr, token);
-    i++;
+    // i++;
   }
   return pointers;
 }

@@ -29,8 +29,9 @@ int main(){
     int i = 0;
     printf("\tParsing with ' '...\n");
     while (semiargs[i]){
-      printf("\t\tParsing semiargs[%d]\n", i);
+      printf("\t\tParsing semiargs[%d]...\n", i);
       args = parse_args(semiargs[i], " ", count_tokens(semiargs[i], " ")); //parses based on spaces
+      printf("\t\tRunning args from semiargs[%d]...\n", i);
       execArgs(args);
       i++;
     }
