@@ -29,6 +29,7 @@ int main(){
     while (args[i]){
       args = parse_args(semiargs[i], " ", count_tokens(semiargs[i], " ")); //parses based on spaces
       execArgs(args);
+      i++;
     }
   }
   return 0;
