@@ -54,7 +54,7 @@ char ** parse_args( char * line , char * separator, int size ){
     if (strcmp(token, "cd")){
       // printing current working directory
       printf("%s\n", getcwd(s, 100));
-      token = strsep(&curr, separator)
+      token = strsep(&curr, separator); //takes next arg for cd
       chdir(token);
     } else if (strcmp(token, "exit")){
       exit(0);
