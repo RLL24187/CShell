@@ -60,7 +60,7 @@ char ** parse_args( char * line , char * separator, int size ){
       pointers[i] = token;
       chdir(token);
     } else if (!strcmp(token, "exit")){
-      exit(0);
+      exit(0); //for some reason, this only exits if you remain in the current directory
     }
     // printf("iteration %d | curr: %s | token: %s\n", i, curr, token);
     i++;
