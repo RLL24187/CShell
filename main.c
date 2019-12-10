@@ -23,9 +23,11 @@ int main(){
     printf("shell $: ");
     fgets(line, 200, stdin); //adds a newline to the end of line
     line[strlen(line) - 1] = '\0';
+    printf("Parsing with ';'...\n");
     // parse using ;
     semiargs = parse_args(line, ";", count_tokens(line, ";"));
     int i = 0;
+    printf("Parsing with ' '...\n");
     while (semiargs[i]){
       args = parse_args(semiargs[i], " ", count_tokens(semiargs[i], " ")); //parses based on spaces
       execArgs(args);
