@@ -55,7 +55,7 @@ char ** parse_args( char * line , char * separator, int size ){
       printf("%s\n", getcwd(s, 100));
       token = strsep(&curr, separator); //takes next arg for cd
       chdir(token);
-    } else if (strcmp(token, "exit")){
+    } else if (!strcmp(token, "exit")){
       exit(0);
     }
     // Returns the beginning of the original string,
