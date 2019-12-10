@@ -15,55 +15,21 @@ int main(){
   char line[200];
   char path[200];
   // char * separator;
-  char ** args;
+  char ** args, semiargs;
   // separator = " ";
   while (1){
 
     printf("shell $: ");
     fgets(line, 200, stdin); //adds a newline to the end of line
-    // if (line[strlen(line) - 2] != '/'){
-    //   line[strlen(line) - 1] = '/';
-    //   line[strlen(line)] = '\0';
-    // }
-    // else{
-      // line[strlen(line) - 1] = '\0';
-    // }
     line[strlen(line) - 1] = '\0';
-    // args = parse_args(line, separator, count_tokens(line, separator));
-    args = parse_args(line, " ", count_tokens(line, " "));
-    execArgs(args);
+    // parse using ;
+    semiargs = parse_args(line, ";", count_tokens(line, ";"));
+    int i = 0;
+    while (args[i]){
+      args = parse_args(semiargs[i], " ", count_tokens(semiargs[i], " ")); //parses based on spaces
+      execArgs(args);
+    }
   }
-  // if (!pid){ //child process
-  //
-  //   // strcpy(line, "ls -l -a");
-  //   printf("Testing parse_args (run '%s'):\n", line);
-  //
-  //   args = parse_args( line , separator, count_tokens(line, separator));
-  //
-  //   execvp(args[0], args);
-  //   printf("exec failed: %s\n", strerror(errno));
-  //   return 0;
-  // }
-  // else{ //parent process
-  //
-  //   // strcpy(line, "ls -l -a -r");
-  //   printf("Testing parse_args (run '%s')\n", line);
-  //
-  //   args = parse_args( line , separator, count_tokens(line, separator));
-  //
-  //   execvp(args[0], args);
-  //   printf("exec failed: %s\n", strerror(errno));
-  //
-  //   return 0;
-  // }
-  // separator = " ";
-  // strcpy(line, "ls -l -a");
-  // printf("Testing parse_args (run '%s'):\n", line);
-  //
-  // args = parse_args( line , separator, count_tokens(line, separator));
-  //
-  // execvp(args[0], args);
-  // printf("exec failed: %s\n", strerror(errno));
   return 0;
 
 
