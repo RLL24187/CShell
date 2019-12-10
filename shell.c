@@ -41,6 +41,7 @@ char ** parse_args( char * line , char * separator, int size ){
   char * curr = line;
   char * token;
   char * temp;
+  char s[100]; //to print working directory
   strcpy(temp, "cd");
   // printf("line: %s\n", line);
   // printf("size line: %d\n", size);
@@ -53,7 +54,10 @@ char ** parse_args( char * line , char * separator, int size ){
     if (strcmp(token, "cd")){
       // printing current working directory
       printf("%s\n", getcwd(s, 100));
-      chdir(".."); 
+      token = strsep(&curr, separator)
+      chdir(token);
+    } else if (strcmp(token, "exit")){
+      exit(0);
     }
     // Returns the beginning of the original string,
     // sets source to the string starting at 1 index past the location of the new NULL
