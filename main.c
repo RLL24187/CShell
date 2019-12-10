@@ -15,7 +15,8 @@ int main(){
   char line[200];
   char path[200];
   // char * separator;
-  char ** args, semiargs;
+  char ** args;
+  char ** semiargs;
   // separator = " ";
   while (1){
 
