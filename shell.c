@@ -62,9 +62,11 @@ char ** parse_args( char * line , char * separator, int size ){
       if (errno < 0){
         printf("Failed chdir %s\n", strerror(errno));
       }
-    } else if (!strcmp(token, "exit")){
-      exit(0); //for some reason, this only exits if you remain in the current directory
     }
+    // else if (!strcmp(token, "exit")){
+    //   printf("Exiting...\n");
+    //   exit(0); //for some reason, this only exits if you remain in the current directory
+    // }
     // printf("iteration %d | curr: %s | token: %s\n", i, curr, token);
     i++;
   }
@@ -82,12 +84,13 @@ void execArgs(char** args){
     if (f < 0) {
         printf("Failed forking child: %s\n", strerror(errno));
         return;
-    } else if (f == 0) { //child
+    }
+    else if (f == 0) { //child
         if (execvp(args[0], args) < 0) {
           printf("Failed executing child: %s\n", strerror(errno));
         }
         printf("child || pid: %d | f: %d | parent: %d\n", getpid(), f, getppid());
-        return;
+        exit(0);
     } else { //parent
         child = wait(&status);
 
