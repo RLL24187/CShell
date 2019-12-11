@@ -49,11 +49,11 @@ char ** parse_args( char * line , char * separator, int size ){
     // printf("iteration %d | curr: %s | token: %s\n", i, curr, token);
     // pointers[i] = malloc(strlen(line)+1);    // allocate desired memory to each pointer
     token = strsep(&curr, separator);
-    printf("\t\t\ttoken: %s |curr: %s\n", token, curr);
+    // printf("\t\t\ttoken: %s |curr: %s\n", token, curr);
     // Returns the beginning of the original string,
     // sets source to the string starting at 1 index past the location of the new NULL
     if (strcmp(token, "")){
-      printf("\t\t\t\tAdding token: '%s'\n", token);
+      // printf("\t\t\t\tAdding token: '%s'\n", token);
       pointers[i] = token;
       i++;
     }
@@ -94,22 +94,16 @@ void execArgs(char** args){
         if (execvp(args[0], args) < 0) {
           printf("Failed executing child: %s\n", strerror(errno));
         }
-        printf("child || pid: %d | f: %d | parent: %d\n", getpid(), f, getppid());
+        // printf("child || pid: %d | f: %d | parent: %d\n", getpid(), f, getppid());
         exit(0);
     } else { //parent
         child = wait(&status);
 
-        if ( WIFEXITED(status) )
-        {
-            printf("Exit status of the child was %d\n", WEXITSTATUS(status));
-        }
-        printf("parent || wait returned: %d | status: %d | real return value: %d\n", child, status, WEXITSTATUS(status));
+        // if ( WIFEXITED(status) )
+        // {
+        //     printf("Exit status of the child was %d\n", WEXITSTATUS(status));
+        // }
+        // printf("parent || wait returned: %d | status: %d | real return value: %d\n", child, status, WEXITSTATUS(status));
         return;
     }
 }
-
-// Read a line at a time, parse the line to separate the command from its arguments.
-// It should then fork and exec the command. The parent process should wait until the exec'd program exits and then it
-// should read the next command.
-// Note: exit and cd cannot be run through a forked child process, you will have to implement these commands on your own.
-        // check out the chdir() function
