@@ -132,7 +132,11 @@ void redirectin(char *function, char *destination){
   if (errno < 0){
     printf("Error opening in readirectin: %s\n", strerror(errno));
   }
+  if (fd < 0){
+    fd = open(destination, O_RDWR);
+  } //file alredy exists
   backup = dup(0); //stdin is 0
+  dup2(fd, 0);
   dup2(backup, 0); //modifying 0 and reading from backup
 }
 void redirectout(char *function, char *destination){
@@ -140,7 +144,10 @@ void redirectout(char *function, char *destination){
     if (errno < 0){
       printf("Error opening in readirectout: %s\n", strerror(errno));
     }
+    if (fd < 0){
+      fd = open(destination, O_RDWR);
+    } //file alredy exists
     backup = dup(1); //stdout is 1
-    dup(fd, 1);
+    dup2(fd, 1);
     dup2(backup, 1); //modifying 1 and reading from backup
 }
