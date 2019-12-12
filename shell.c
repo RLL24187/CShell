@@ -126,6 +126,9 @@ void redirectin(char *function, char *destination){
   //O_RDWR		open for reading and writing
   //O_CREAT		create file if it does not exist
   //O_EXCL		error if create and file exists
+    //if O_EXCL and O_CREAT are set, "open" will fail if the file exists and "errno" will be set to EEXIST.
+    //If the file does not exist, "open" will fail and "errno" will be set to EACCESS.
+
   if (errno < 0){
     printf("Error opening in readirectin: %s\n", strerror(errno));
   }
@@ -135,7 +138,7 @@ void redirectin(char *function, char *destination){
 void redirectout(char *function, char *destination){
     int fd = open(destination, 0_RDWR | O_EXCL | O_CREAT, 0644);
     if (errno < 0){
-      printf("Error opening in readirectin: %s\n", strerror(errno));
+      printf("Error opening in readirectout: %s\n", strerror(errno));
     }
     backup = dup(1); //stdout is 1
     dup(fd, 1);
