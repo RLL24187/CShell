@@ -72,6 +72,18 @@ char ** parse_args( char * line , char * separator, int size ){
       printf("Exiting...\n");
       exit(0); //for some reason, this only exits if you remain in the current directory
     }
+    else if (!strcmp(token, ">")){
+      token = strsep(&curr, separator);
+      pointer[i] = token;
+      i++;
+      redirectout(pointers[i-2], token[i-1], token);
+    }
+    else if (!strcmp(token, "<")){
+      token = strsep(&curr, separator);
+      pointer[i] = token;
+      i++;
+      redirectin(pointers[i-2], token);
+    }
     // printf("iteration %d | curr: %s | token: %s\n", i, curr, token);
     // i++;
   }
@@ -106,4 +118,22 @@ void execArgs(char** args){
         // printf("parent || wait returned: %d | status: %d | real return value: %d\n", child, status, WEXITSTATUS(status));
         return;
     }
+}
+
+void redirectin(char *function, char *destination){
+  int fd = open(destination, 0_RDWR);
+  if (errno < 0){
+    printf("Error opening in readirectin: %s\n", strerror(errno));
+  }
+  backup = dup(0); //stdin is 0
+  dup2(backup, 0); //modifying 0 and reading from backup
+}
+void redirectout(char *function, char *destination){
+    int fd = open(destination, 0_RDWR);
+    if (errno < 0){
+      printf("Error opening in readirectin: %s\n", strerror(errno));
+    }
+    backup = dup(1); //stdout is 1
+    dup(fd, 1);
+    dup2(backup, 1); //modifying 1 and reading from backup
 }
