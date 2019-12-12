@@ -15,12 +15,12 @@ check out the chdir() function
 1. Every function you write must have a function header describing the arguments, return value and what the function does.
 * Use modular design liberally. This is a large program.
 2. You should have a readme file with the following:
-<br>   i. A description of what features your shell implements
-<br>  ii. A description of what features you attempted to implement but were unsuccessful
+<br>    i. A description of what features your shell implements
+<br>   ii. A description of what features you attempted to implement but were unsuccessful
 <br>  iii. Any bugs or things you want me to know about your program
-<br>  iv. I am much more forgiving of reported bugs than bugs I discover while testing
-<br>  v. A copy of every function header
-<br>  vi. An example of the readme file can be found in the github repository for this assignment
+<br>   iv. I am much more forgiving of reported bugs than bugs I discover while testing
+<br>    v. A copy of every function header
+<br>   vi. An example of the readme file can be found in the github repository for this assignment
 3. This project should use separate C files as necessary.
 4. The project should be built using make and a makefile, I will only compile by using make.
 </br>
