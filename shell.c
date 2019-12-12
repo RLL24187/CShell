@@ -121,7 +121,11 @@ void execArgs(char** args){
 }
 
 void redirectin(char *function, char *destination){
-  int fd = open(destination, 0_RDWR);
+  int fd = open(destination, 0_RDWR | O_EXCL | O_CREAT, 0644);
+  //opens with read and write permissions, but creates file if it doesn't exist
+  //O_RDWR		open for reading and writing
+  //O_CREAT		create file if it does not exist
+  //O_EXCL		error if create and file exists
   if (errno < 0){
     printf("Error opening in readirectin: %s\n", strerror(errno));
   }
@@ -129,7 +133,7 @@ void redirectin(char *function, char *destination){
   dup2(backup, 0); //modifying 0 and reading from backup
 }
 void redirectout(char *function, char *destination){
-    int fd = open(destination, 0_RDWR);
+    int fd = open(destination, 0_RDWR | O_EXCL | O_CREAT, 0644);
     if (errno < 0){
       printf("Error opening in readirectin: %s\n", strerror(errno));
     }
