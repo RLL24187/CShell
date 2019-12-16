@@ -5,4 +5,4 @@ void redirectin(char **function, int * status, int prevlen);
 void redirectout(char **function, int * status, int prevlen);
 void forkit(char ** args, int * status);
 char * gethome();
-void pipeit(char *cmd;
+void pipeit(char *cmd);
