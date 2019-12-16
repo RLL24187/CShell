@@ -5,8 +5,8 @@ Rachel Leong Period 10 </br>
 
 * Forks and executes commands
 * Parses multiple commands on one line using ';'
-* Redirects using >, <
 # Attempted
+* Redirection didn't work
 * Pipes didn't work
 * Multiple redirection didn't work
 
