@@ -195,7 +195,7 @@ void forkit(char ** args, int * status){
 char * gethome() {
   char * homedir;
   if ((homedir = getenv("HOME"))){
-    struct passwd *pw = getpwuid(uid);
+    struct passwd *pw = getpwuid(getuid());
     printf("pw_dir: '%s'\n", pw->pw_dir);
     return pw->pw_dir;
   }
