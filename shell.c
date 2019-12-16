@@ -128,8 +128,8 @@ void redirectin(char **args, int *status, int prevlen){
   forkit(prevargs, status);
   close(fd);
   dup2(backup, 0); //modifying 0 and reading from backup
-  free(i);
-  free(prevlen);
+  // free(i);
+  // free(prevlen);
 }
 
 void redirectout(char **args, int *status, int prevlen){
@@ -152,8 +152,8 @@ void redirectout(char **args, int *status, int prevlen){
     forkit(prevargs, status);
     close(fd);
     dup2(backup, 1); //modifying 1 and reading from backup
-    free(i);
-    free(prevlen);
+    // free(i);
+    // free(prevlen);
 }
 
 void forkit(char ** args, int * status){
