@@ -70,7 +70,7 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
     int status;
     int i;
     char **argscpy = args;
-    while (argscpy*){
+    while (*argscpy){
       char *token = malloc(200); //allocate memory for a token
       printf("prev declare args[i]\n");
       strcpy(token, args[i]);
