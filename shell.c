@@ -65,19 +65,21 @@ char ** parse_args( char * line , char * separator, int size ){
 }
 
 // Function where the system command is executed
-void execArgs(char** args){
+void execArgs(char** args){ //args is already parsed by ';' and ' '
     int child;
     int status;
+    int i;
     char *token;
-    while (*args){
+    while (args[i]){
       token = malloc(200); //allocate memory for a token
-      strcpy(token, *args);
+      strcpy(token, args[i]);
       if (!strcmp(token, "cd")){
         // printing current working directory
         printf("%s\n", getcwd(s, 100));
         // token = strsep(&curr, separator); //takes next arg for cd
         // pointers[i] = token;
-        // i++;
+        i++;
+        strcpy(token, args[i])
         chdir(token);
         if (errno < 0){
           printf("Failed chdir %s\n", strerror(errno));
@@ -90,42 +92,26 @@ void execArgs(char** args){
       else if (!strcmp(token, ">")){ //stdout
         // token = strsep(&curr, separator);
         // pointer[i] = token; //file to open
-        // i++;
+        i++;
         redirectout(args, token);
       }
       else if (!strcmp(token, "<")){ //stdin
         // token = strsep(&curr, separator);
         // pointer[i] = token; //file to open
-        // i++;
+        i++;
         redirectin(args, token);
       }
+      else{
+        // make the child process
+        forkit(args, status);
+      }
+      i++;
     }
-    // make the child process
-    int f = fork();
-
-    if (f < 0) {
-        printf("Failed forking child: %s\n", strerror(errno));
-        return;
-    }
-    else if (f == 0) { //child
-        if (execvp(args[0], args) < 0) {
-          printf("Failed executing child: %s\n", strerror(errno));
-        }
-        // printf("child || pid: %d | f: %d | parent: %d\n", getpid(), f, getppid());
-        exit(0);
-    } else { //parent
-        child = wait(&status);
-
-        // if ( WIFEXITED(status) )
-        // {
-        //     printf("Exit status of the child was %d\n", WEXITSTATUS(status));
-        // }
-        // printf("parent || wait returned: %d | status: %d | real return value: %d\n", child, status, WEXITSTATUS(status));
-        return;
-    }
+    return;
 }
 
 void redirectin(char **args, char *destination){
+  int backup;
   int fd = open(destination, O_RDWR | O_EXCL | O_CREAT, 0644);
   //opens with read and write permissions, but creates file if it doesn't exist
   //O_RDWR		open for reading and writing
@@ -155,4 +141,28 @@ void redirectout(char **args, char *destination){
     backup = dup(1); //stdout is 1
     dup2(fd, 1); //modifying 0 and reading from fd
     dup2(backup, 1); //modifying 1 and reading from backup
+}
+void forkit(char ** args, int status){
+  int f = fork();
+
+  if (f < 0) {
+      printf("Failed forking child: %s\n", strerror(errno));
+      return;
+  }
+  else if (f == 0) { //child
+      if (execvp(args[0], args) < 0) {
+        printf("Failed executing child: %s\n", strerror(errno));
+      }
+      // printf("child || pid: %d | f: %d | parent: %d\n", getpid(), f, getppid());
+      exit(0);
+  } else { //parent
+      child = wait(&status);
+
+      // if ( WIFEXITED(status) )
+      // {
+      //     printf("Exit status of the child was %d\n", WEXITSTATUS(status));
+      // }
+      // printf("parent || wait returned: %d | status: %d | real return value: %d\n", child, status, WEXITSTATUS(status));
+      return;
+  }
 }
