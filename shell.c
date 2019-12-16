@@ -69,11 +69,12 @@ char ** parse_args( char * line , char * separator, int size ){
 void execArgs(char** args){ //args is already parsed by ';' and ' '
     int status;
     int i;
-    while (args[i]){
-      printf("prev declare token\n");
+    char **argscpy = args;
+    while (argscpy*){
       char *token = malloc(200); //allocate memory for a token
-      printf("after declare token\n");
+      printf("prev declare args[i]\n");
       strcpy(token, args[i]);
+      printf("after declare args[i]\n");
       if (!strcmp(token, "cd")){
         // printing current working directory
         char s[200];
