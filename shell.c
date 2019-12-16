@@ -140,9 +140,11 @@ void redirectout(char **args, int *status, int prevlen){
   char ** prevargs = malloc(2000); // args before <
   int i = 0;
   while (i <= prevlen){ //adding the args to prevlen
+    printf("args[%d]: %s\n", i, args[i]);
     prevargs[i] = args[i];
     i++;
   }
+  printf("args[%d]: %s\n", i+1, args[i+1]);
     int backup;
     int fd = open(args[i + 1], O_RDWR | O_EXCL | O_CREAT, 0644);
     if (errno < 0){
