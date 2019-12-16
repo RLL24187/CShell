@@ -75,11 +75,8 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
       strcpy(token, args[i]);
       if (!strcmp(token, "cd")){
         // printing current working directory
-        printf("%s\n", getcwd(s, 100));
-        // token = strsep(&curr, separator); //takes next arg for cd
-        // pointers[i] = token;
-        i++;
-        strcpy(token, args[i])
+        printf("Current working directory: %s\n", getcwd(s, 100));
+        strcpy(token, args[i]);
         chdir(token);
         if (errno < 0){
           printf("Failed chdir %s\n", strerror(errno));
@@ -87,30 +84,24 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
       }
       else if (!strcmp(token, "exit")){
         printf("Exiting...\n");
-        exit(0); //for some reason, this only exits if you remain in the current directory
+        exit(0);
       }
       else if (!strcmp(token, ">")){ //stdout
-        // token = strsep(&curr, separator);
-        // pointer[i] = token; //file to open
-        i++;
-        redirectout(args, token);
+        redirectout(args, &status);
       }
       else if (!strcmp(token, "<")){ //stdin
-        // token = strsep(&curr, separator);
-        // pointer[i] = token; //file to open
-        i++;
-        redirectin(args, token);
+        redirectin(args, &status);
       }
       else{
         // make the child process
-        forkit(args, status);
+        forkit(args, &status);
       }
       i++;
     }
     return;
 }
 
-void redirectin(char **args, char *destination){
+void redirectin(char **args, int *status){
   int backup;
   int fd = open(destination, O_RDWR | O_EXCL | O_CREAT, 0644);
   //opens with read and write permissions, but creates file if it doesn't exist
@@ -119,7 +110,6 @@ void redirectin(char **args, char *destination){
   //O_EXCL		error if create and file exists
     //if O_EXCL and O_CREAT are set, "open" will fail if the file exists and "errno" will be set to EEXIST.
     //If the file does not exist, "open" will fail and "errno" will be set to EACCESS.
-
   if (errno < 0){
     printf("Error opening in redirectin: %s\n", strerror(errno));
   }
@@ -128,9 +118,12 @@ void redirectin(char **args, char *destination){
   } //file alredy exists
   backup = dup(0); //stdin is 0
   dup2(fd, 0); //modifying 0 and reading from fd
+  forkit(prevargs, status);
+  close(f);
   dup2(backup, 0); //modifying 0 and reading from backup
 }
-void redirectout(char **args, char *destination){
+
+void redirectout(char **args, int *status){
     int fd = open(destination, O_RDWR | O_EXCL | O_CREAT, 0644);
     if (errno < 0){
       printf("Error opening in redirectout: %s\n", strerror(errno));
@@ -140,9 +133,11 @@ void redirectout(char **args, char *destination){
     } //file alredy exists
     backup = dup(1); //stdout is 1
     dup2(fd, 1); //modifying 0 and reading from fd
+    forkit(prevargs, status);
+    close(f);
     dup2(backup, 1); //modifying 1 and reading from backup
 }
-void forkit(char ** args, int status){
+void forkit(char ** args, int * status){
   int f = fork();
 
   if (f < 0) {
@@ -156,7 +151,7 @@ void forkit(char ** args, int status){
       // printf("child || pid: %d | f: %d | parent: %d\n", getpid(), f, getppid());
       exit(0);
   } else { //parent
-      child = wait(&status);
+      child = wait(status);
 
       // if ( WIFEXITED(status) )
       // {
