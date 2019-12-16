@@ -33,10 +33,10 @@ int main(){
     while (semiargs[i]){
       // printf("\t\tParsing semiargs[%d]...\n", i);
       args = parse_args(semiargs[i], " ", count_tokens(semiargs[i], " ")); //parses based on spaces
-      pipeargs = parse_args(semiargs[i], "|");
-      if (pipeargs[1]){
-        pipeit(pipeargs);
-      }
+      // pipeargs = parse_args(semiargs[i], "|");
+      // if (pipeargs[1]){
+      //   pipeit(pipeargs);
+      // }
       // printf("\t\tRunning args from semiargs[%d]...\n", i);
       execArgs(args);
       i++;
