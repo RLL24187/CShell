@@ -107,7 +107,7 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
         redirectout(args, &status, i-1); //i-1 tells the number of args before '>'
       }
       else if (!strcmp(token, "|")){
-        pipeit(*argscpy);
+        pipeit(args, & status, i - 1);
       }
       i++;
       argscpy++;
@@ -206,23 +206,18 @@ char * gethome() {
   return NULL;
 }
 
-void pipeit(char **args){ //only takes a single pipe
-  FILE * in = popen(, "r"); //open both sides?
+void pipeit(char **args, int * status, int prevlen){ //only takes a single pipe
+  // pipeit(args, & status, i - 1);
+  // open both sides of pipe
+  FILE * in = popen(args[prevlen], "r");
   if (!in){
     printf("%s\n", strerror(errno));
   }
-  FILE *out = popen(t[1], "w");
+  FILE *out = popen(args[prevlen + 2], "w");
   if (!out){
     printf("%s\n", strerror(errno));
   }
-  char buff[100];
-  while (fgets(buffer, 100, input)){
-    fputs(buff, output);
-  }
-  pclose(input);
-  pclose(output);
   // If mode is w, file descriptor STDIN_FILENO will be the readable end of the pipe when the child process is started.
   // The file descriptor fileno(stream) in the calling process, where stream is the stream pointer returned by popen(), will be the writable end of the pipe.
-  pclose(f);
   return;
 }
