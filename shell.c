@@ -73,14 +73,13 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
     char **argscpy = args;
     while (*argscpy){
       char *token = malloc(200); //allocate memory for a token
-      printf("prev declare args[i]\n");
       strcpy(token, *argscpy);
       printf("token: '%s'\n", token);
-      printf("after declare args[i]\n");
       if (!strcmp(token, "cd")){
         // printing current working directory
         char s[200];
         printf("Current working directory: %s\n", getcwd(s, 100));
+        argscpy++;
         strcpy(token, *argscpy);
         chdir(token);
         if (errno < 0){
