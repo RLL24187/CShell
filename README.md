@@ -6,6 +6,7 @@ Rachel Leong Period 10 </br>
 * Forks and executes commands
 * Parses multiple commands on one line using ';'
 * Redirects using > and <
+* Simple piping works
 
 # Attempted
 * Pipes didn't work
@@ -13,7 +14,7 @@ Rachel Leong Period 10 </br>
 
 # Bugs
 * Occasionally tr a-z A-Z < foo gives an error saying that there are too many arguments for tr
-* ls | wc says that it can't cd into "|"
+* Although it will pipe, ls | wc says that it can't cd into "|"
 * Occasionally cat > output says that ">" isn't a valid file or directory
 
 # Extras
