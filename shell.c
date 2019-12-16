@@ -85,6 +85,9 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
         if (strcmp(token, "~")){ //if not changing to home dir
           chdir(token);
         }
+        else if (!token || strcmp(token, "")){ // a directory wasn't given
+          printf("Error: please input a directory\n");
+        }
         else{ //change to homedir
           chdir(gethome());
         }
