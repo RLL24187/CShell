@@ -75,6 +75,7 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
       strcpy(token, args[i]);
       if (!strcmp(token, "cd")){
         // printing current working directory
+        char s[200];
         printf("Current working directory: %s\n", getcwd(s, 100));
         strcpy(token, args[i]);
         chdir(token);
@@ -152,6 +153,7 @@ void redirectout(char **args, int *status, int prevlen){
     close(f);
     dup2(backup, 1); //modifying 1 and reading from backup
 }
+
 void forkit(char ** args, int * status){
   int f = fork();
 
