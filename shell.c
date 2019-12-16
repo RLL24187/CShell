@@ -74,14 +74,20 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
     while (*argscpy){
       char *token = malloc(200); //allocate memory for a token
       strcpy(token, *argscpy);
-      printf("token: '%s'\n", token);
+      // printf("token: '%s'\n", token);
       if (!strcmp(token, "cd")){
         // printing current working directory
         char s[200];
         printf("Current working directory: %s\n", getcwd(s, 100));
         argscpy++;
         strcpy(token, *argscpy);
-        chdir(token);
+        if (strcmp(token, "~")){ //if not changing to home dir
+          chdir(token);
+        }
+        else{ //change to homedir
+          s = gethome();
+          chdir(s);
+        }
         if (errno < 0){
           printf("Failed chdir %s\n", strerror(errno));
         }
@@ -140,11 +146,11 @@ void redirectout(char **args, int *status, int prevlen){
   char ** prevargs = malloc(2000); // args before <
   int i = 0;
   while (i <= prevlen){ //adding the args to prevlen
-    printf("args[%d]: %s\n", i, args[i]);
+    // printf("args[%d]: %s\n", i, args[i]);
     prevargs[i] = args[i];
     i++;
   }
-  printf("args[%d]: %s\n", i+1, args[i+1]);
+  // printf("args[%d]: %s\n", i+1, args[i+1]);
     int backup;
     int fd = open(args[i + 1], O_RDWR | O_EXCL | O_CREAT, 0644);
     if (errno < 0){
@@ -164,19 +170,18 @@ void redirectout(char **args, int *status, int prevlen){
 
 void forkit(char ** args, int * status){
   int f = fork();
-  int child;
   if (f < 0) {
       printf("Failed forking child: %s\n", strerror(errno));
       return;
   }
   else if (f == 0) { //child
       if (execvp(args[0], args) < 0) {
-        printf("Failed executing child: %s\n", strerror(errno));
+        // printf("Failed executing child: %s\n", strerror(errno));
       }
       // printf("child || pid: %d | f: %d | parent: %d\n", getpid(), f, getppid());
       exit(0);
   } else { //parent
-      child = wait(status);
+      wait(status);
 
       // if ( WIFEXITED(status) )
       // {
@@ -185,4 +190,17 @@ void forkit(char ** args, int * status){
       // printf("parent || wait returned: %d | status: %d | real return value: %d\n", child, status, WEXITSTATUS(status));
       return;
   }
+}
+
+char * gethome() {
+  char * homedir;
+  if ((homedir = getenv("HOME"))){
+    pw = getpwuid(getuid());
+    return pw->pw_dir;
+  }
+  return NULL;
+}
+
+void pipeit(char *cmd, int * status){
+  return;
 }
