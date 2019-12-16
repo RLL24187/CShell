@@ -74,6 +74,7 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
     while (*argscpy){
       char *token = malloc(200); //allocate memory for a token
       strcpy(token, *argscpy);
+      free(*argscpy);
       printf("token: '%s'\n", token);
       if (!strcmp(token, "cd")){
         // printing current working directory
@@ -82,6 +83,7 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
         argscpy++;
         if (*argscpy){ //if there's a directory given
           strcpy(token, *argscpy);
+          free(*argscpy);
           if (strcmp(token, "~")){ //if not changing to home dir
             chdir(token);
           }
@@ -107,7 +109,7 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
         redirectout(args, &status, i-1); //i-1 tells the number of args before '>'
       }
       else if (!strcmp(token, "|")){
-        pipeit(*argscpy, &status);
+        pipeit(*argscpy);
       }
       i++;
       argscpy++;
@@ -207,8 +209,10 @@ char * gethome() {
   return NULL;
 }
 
-void pipeit(char *cmd, int * status){
-  FILE * f = popen(command, "w");
+void pipeit(char *cmd){
+  FILE * f = popen(cmd, "w");
+  // If mode is w, file descriptor STDIN_FILENO will be the readable end of the pipe when the child process is started.
+  // The file descriptor fileno(stream) in the calling process, where stream is the stream pointer returned by popen(), will be the writable end of the pipe.
   pclose(f);
   return;
 }
