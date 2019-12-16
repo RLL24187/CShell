@@ -36,23 +36,23 @@ If you would like to implement other features after getting these ones down, ple
 int count_tokens(char * line, char * separator); </br>
 * Takes an input from the shell and separates it based on a single character separator.
 * Returns the number of tokens </br>
-char ** parse_args( char * line , char * separator, int size);
+char ** parse_args( char * line , char * separator, int size); </br>
 * Given the line and separator and size, the number of tokens from count_tokens, it will parse the arguments with ";" and " " and split it into tokens.
 * Returns an array of strings (parsed arguments) </br>
-void execArgs(char ** args);
+void execArgs(char ** args); </br>
 * Takes parsed arguments and runs the functions with execvp </br>
 
-void redirectin(char **args, int * status, int prevlen);
+void redirectin(char **args, int * status, int prevlen); </br>
 * takes parsed arguments, status for waiting, and prevlen is the number of tokens prior to > </br>
 
-void redirectout(char **args, int * status, int prevlen);
+void redirectout(char **args, int * status, int prevlen); </br>
 * takes parsed arguments, status for waiting, and prevlen is the number of tokens prior to < </br>
 
-void forkit(char ** args, int * status);
+void forkit(char ** args, int * status); </br>
 * forks a child process given args (parsed arguments) and status for waiting
 
-char * gethome();
+char * gethome(); </br>
 * gets the home directory
 
-void pipeit(char *cmd);
+void pipeit(char *cmd); </br>
 * makes a simple pipe given a command
