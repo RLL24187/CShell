@@ -81,11 +81,11 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
         char s[200];
         printf("Current working directory: %s\n", getcwd(s, 100));
         argscpy++;
-        if (*argscpy){
+        if (*argscpy){ //if there's a directory given
           strcpy(token, *argscpy);
-          if (!token || strcmp(token, "")){ // a directory wasn't given
-            printf("Error: please input a directory\n");
-          }
+          // if (!token || strcmp(token, "")){ // a directory wasn't given
+          //   printf("Error: please input a directory\n");
+          // }
           if (strcmp(token, "~")){ //if not changing to home dir
             chdir(token);
           }
