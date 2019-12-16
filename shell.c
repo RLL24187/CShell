@@ -97,12 +97,12 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
       else if (!strcmp(token, ">")){ //stdout
         redirectout(args, &status, i-1); //i-1 tells the number of args before '>'
       }
-      else{
-        // make the child process
-        forkit(args, &status);
-      }
+      // else{
+      //   // make the child process
+      // }
       i++;
     }
+    forkit(args, &status);
     return;
 }
 
