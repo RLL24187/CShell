@@ -63,7 +63,6 @@ char ** parse_args( char * line , char * separator, int size ){
     // printf("iteration %d | curr: %s | token: %s\n", i, curr, token);
     // i++;
   }
-  // pointers[i] = "\0";
   return pointers;
 }
 
@@ -83,9 +82,6 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
         argscpy++;
         if (*argscpy){ //if there's a directory given
           strcpy(token, *argscpy);
-          // if (!token || strcmp(token, "")){ // a directory wasn't given
-          //   printf("Error: please input a directory\n");
-          // }
           if (strcmp(token, "~")){ //if not changing to home dir
             chdir(token);
           }
@@ -110,12 +106,13 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
       else if (!strcmp(token, ">")){ //stdout
         redirectout(args, &status, i-1); //i-1 tells the number of args before '>'
       }
-      // else{
-      //   // make the child process
-      // }
+      else if (!strcmp(token, "|")){
+        pipeit(*argscpy, &status);
+      }
       i++;
       argscpy++;
     }
+    free(argscpy);
     forkit(args, &status);
     return;
 }
@@ -211,5 +208,7 @@ char * gethome() {
 }
 
 void pipeit(char *cmd, int * status){
+  FILE * f = popen(command, "w");
+  pclose(f);
   return;
 }
