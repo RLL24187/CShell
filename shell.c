@@ -86,11 +86,11 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
         printf("Exiting...\n");
         exit(0);
       }
-      else if (!strcmp(token, ">")){ //stdout
-        redirectout(args, &status);
-      }
       else if (!strcmp(token, "<")){ //stdin
-        redirectin(args, &status);
+        redirectin(args, &status, i-1); //i-1 tells the number of args before '<'
+      }
+      else if (!strcmp(token, ">")){ //stdout
+        redirectout(args, &status, i-1); //i-1 tells the number of args before '>'
       }
       else{
         // make the child process
@@ -101,7 +101,14 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
     return;
 }
 
-void redirectin(char **args, int *status){
+void redirectin(char **args, int *status, int prevlen){
+  char ** prevargs = malloc(2000); // args before <
+  int i = 0;
+  while (i <= prevlen){ //adding the args to prevlen
+    prevargs[i] = args[i];
+    i++;
+  }
+  free(i, prevlen);
   int backup;
   int fd = open(destination, O_RDWR | O_EXCL | O_CREAT, 0644);
   //opens with read and write permissions, but creates file if it doesn't exist
@@ -123,7 +130,15 @@ void redirectin(char **args, int *status){
   dup2(backup, 0); //modifying 0 and reading from backup
 }
 
-void redirectout(char **args, int *status){
+void redirectout(char **args, int *status, int prevlen){
+  char ** prevargs = malloc(2000); // args before <
+  int i = 0;
+  while (i <= prevlen){ //adding the args to prevlen
+    prevargs[i] = args[i];
+    i++;
+  }
+  free(i, prevlen);
+    int backup;
     int fd = open(destination, O_RDWR | O_EXCL | O_CREAT, 0644);
     if (errno < 0){
       printf("Error opening in redirectout: %s\n", strerror(errno));
