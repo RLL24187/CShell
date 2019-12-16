@@ -8,6 +8,7 @@
 #include <sys/wait.h>
 #include <time.h>
 #include <dirent.h>
+#include <pwd.h>
 #include "shell.h"
 
 int main(){

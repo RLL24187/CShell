@@ -8,6 +8,7 @@
 #include <sys/wait.h>
 #include <time.h>
 #include <dirent.h>
+#include <pwd.h>
 #include "shell.h"
 
 // Try starting with these restrictions on input:
@@ -85,8 +86,7 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
           chdir(token);
         }
         else{ //change to homedir
-          s = gethome();
-          chdir(s);
+          chdir(gethome());
         }
         if (errno < 0){
           printf("Failed chdir %s\n", strerror(errno));
@@ -195,7 +195,8 @@ void forkit(char ** args, int * status){
 char * gethome() {
   char * homedir;
   if ((homedir = getenv("HOME"))){
-    pw = getpwuid(getuid());
+    struct passwd *pw = getpwuid(uid);
+    printf("pw_dir: '%s'\n", pw->pw_dir);
     return pw->pw_dir;
   }
   return NULL;
