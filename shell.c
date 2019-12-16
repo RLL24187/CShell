@@ -74,14 +74,14 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
     while (*argscpy){
       char *token = malloc(200); //allocate memory for a token
       printf("prev declare args[i]\n");
-      strcpy(token, args[i]);
+      strcpy(token, *argscpy);
       printf("token: %s\n", token);
       printf("after declare args[i]\n");
       if (!strcmp(token, "cd")){
         // printing current working directory
         char s[200];
         printf("Current working directory: %s\n", getcwd(s, 100));
-        strcpy(token, args[i]);
+        strcpy(token, *argscpy);
         chdir(token);
         if (errno < 0){
           printf("Failed chdir %s\n", strerror(errno));
@@ -101,6 +101,7 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
       //   // make the child process
       // }
       i++;
+      argscpy++;
     }
     forkit(args, &status);
     return;
