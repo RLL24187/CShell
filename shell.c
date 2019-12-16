@@ -74,7 +74,6 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
     while (*argscpy){
       char *token = malloc(200); //allocate memory for a token
       strcpy(token, *argscpy);
-      free(*argscpy);
       printf("token: '%s'\n", token);
       if (!strcmp(token, "cd")){
         // printing current working directory
@@ -83,7 +82,6 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
         argscpy++;
         if (*argscpy){ //if there's a directory given
           strcpy(token, *argscpy);
-          free(*argscpy);
           if (strcmp(token, "~")){ //if not changing to home dir
             chdir(token);
           }
