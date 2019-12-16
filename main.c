@@ -19,8 +19,8 @@ int main(){
   char ** args;
   char ** semiargs;
   // separator = " ";
+  printf("Hello there! Welcome to my shell :)\n");
   while (1){
-    printf("Hello there! Welcome to my shell. Not the best but I tried :)\n");
     printf("shell $: ");
     fgets(line, 200, stdin); //adds a newline to the end of line
     line[strlen(line) - 1] = '\0';
