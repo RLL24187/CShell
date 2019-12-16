@@ -74,6 +74,7 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
       char *token = malloc(200); //allocate memory for a token
       printf("prev declare args[i]\n");
       strcpy(token, args[i]);
+      printf("token: %s\n", token);
       printf("after declare args[i]\n");
       if (!strcmp(token, "cd")){
         // printing current working directory
