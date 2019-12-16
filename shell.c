@@ -41,7 +41,7 @@ int count_tokens( char * line , char * separator){
 char ** parse_args( char * line , char * separator, int size ){
   char * curr = line;
   char * token;
-  char s[100]; //to print working directory
+  // char s[100]; //to print working directory
   // printf("line: %s\n", line);
   // printf("size line: %d\n", size);
   char ** pointers = malloc((size + 1) * sizeof(char *)); //allocate memory for 5 pointers (b/c at most 5 args) + make room for NULL
@@ -59,7 +59,7 @@ char ** parse_args( char * line , char * separator, int size ){
       i++;
     }
 
-    // printf("iteration %d | curr: %s | token: %s\n", i, curr, token);
+    printf("iteration %d | curr: %s | token: %s\n", i, curr, token);
     // i++;
   }
   return pointers;
