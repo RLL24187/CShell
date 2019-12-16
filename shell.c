@@ -110,7 +110,7 @@ void redirectin(char **args, int *status, int prevlen){
     i++;
   }
   int backup;
-  int fd = open(destination, O_RDWR | O_EXCL | O_CREAT, 0644);
+  int fd = open(args[i], O_RDWR | O_EXCL | O_CREAT, 0644);
   //opens with read and write permissions, but creates file if it doesn't exist
   //O_RDWR		open for reading and writing
   //O_CREAT		create file if it does not exist
@@ -121,12 +121,12 @@ void redirectin(char **args, int *status, int prevlen){
     printf("Error opening in redirectin: %s\n", strerror(errno));
   }
   if (fd < 0){
-    fd = open(destination, O_RDWR, 0644);
+    fd = open(args[i], O_RDWR, 0644);
   } //file alredy exists
   backup = dup(0); //stdin is 0
   dup2(fd, 0); //modifying 0 and reading from fd
   forkit(prevargs, status);
-  close(f);
+  close(fd);
   dup2(backup, 0); //modifying 0 and reading from backup
   free(&i);
   free(&prevlen);
@@ -150,7 +150,7 @@ void redirectout(char **args, int *status, int prevlen){
     backup = dup(1); //stdout is 1
     dup2(fd, 1); //modifying 0 and reading from fd
     forkit(prevargs, status);
-    close(f);
+    close(fd);
     dup2(backup, 1); //modifying 1 and reading from backup
     free(&i);
     free(&prevlen);
