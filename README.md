@@ -35,11 +35,13 @@ void execArgs(char ** args); </br>
 
 void redirectin(char **args, int * status, int prevlen); </br>
 * Takes parsed arguments, status for waiting, and prevlen is the number of tokens prior to '>' </br>
+* redirects to STDIN
 * Returns nothing </br>
 
 void redirectout(char **args, int * status, int prevlen); </br>
 
 * Takes parsed arguments, status for waiting, and prevlen is the number of tokens prior to '<' </br>
+* redirects to STDOUT
 * Returns nothing
 
 void forkit(char ** args, int * status); </br>
@@ -51,7 +53,7 @@ char * gethome(); </br>
 * Returns a pointer to a string contining the home directory
 
 void pipeit(char **args, int * status, int prevlen); </br>
-* Was supposed to take a simple pipe given the parsed args, a status for waiting, and prevlen which is the number of tokens prior to '|' </br>
+* Was supposed to make a simple pipe given the parsed args, a status for waiting, and prevlen which is the number of tokens prior to '|' </br>
 
 #Files
 shell.c </br>
