@@ -206,8 +206,21 @@ char * gethome() {
   return NULL;
 }
 
-void pipeit(char *cmd){
-  FILE * f = popen(cmd, "w");
+void pipeit(char **args){ //only takes a single pipe
+  FILE * in = popen(, "r"); //open both sides?
+  if (!in){
+    printf("%s\n", strerror(errno));
+  }
+  FILE *out = popen(t[1], "w");
+  if (!out){
+    printf("%s\n", strerror(errno));
+  }
+  char buff[100];
+  while (fgets(buffer, 100, input)){
+    fputs(buff, output);
+  }
+  pclose(input);
+  pclose(output);
   // If mode is w, file descriptor STDIN_FILENO will be the readable end of the pipe when the child process is started.
   // The file descriptor fileno(stream) in the calling process, where stream is the stream pointer returned by popen(), will be the writable end of the pipe.
   pclose(f);
