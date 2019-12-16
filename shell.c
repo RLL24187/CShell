@@ -81,19 +81,23 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
         char s[200];
         printf("Current working directory: %s\n", getcwd(s, 100));
         argscpy++;
-        strcpy(token, *argscpy);
-        printf("token: '%s'\n", token);
-        if (!token || strcmp(token, "")){ // a directory wasn't given
+        if (*argscpy){
+          strcpy(token, *argscpy);
+          if (!token || strcmp(token, "")){ // a directory wasn't given
+            printf("Error: please input a directory\n");
+          }
+          if (strcmp(token, "~")){ //if not changing to home dir
+            chdir(token);
+          }
+          else{ //change to homedir
+            chdir(gethome());
+          }
+          if (errno < 0){
+            printf("Failed chdir %s\n", strerror(errno));
+          }
+        }
+        else{// a directory wasn't given
           printf("Error: please input a directory\n");
-        }
-        if (strcmp(token, "~")){ //if not changing to home dir
-          chdir(token);
-        }
-        else{ //change to homedir
-          chdir(gethome());
-        }
-        if (errno < 0){
-          printf("Failed chdir %s\n", strerror(errno));
         }
       }
       else if (!strcmp(token, "exit")){
