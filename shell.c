@@ -52,38 +52,12 @@ char ** parse_args( char * line , char * separator, int size ){
     // printf("\t\t\ttoken: %s |curr: %s\n", token, curr);
     // Returns the beginning of the original string,
     // sets source to the string starting at 1 index past the location of the new NULL
-    if (strcmp(token, "")){
+    if (strcmp(token, "")){ //if not empty string
       // printf("\t\t\t\tAdding token: '%s'\n", token);
       pointers[i] = token;
       i++;
     }
-    if (!strcmp(token, "cd")){
-      // printing current working directory
-      printf("%s\n", getcwd(s, 100));
-      token = strsep(&curr, separator); //takes next arg for cd
-      pointers[i] = token;
-      i++;
-      chdir(token);
-      if (errno < 0){
-        printf("Failed chdir %s\n", strerror(errno));
-      }
-    }
-    else if (!strcmp(token, "exit")){
-      printf("Exiting...\n");
-      exit(0); //for some reason, this only exits if you remain in the current directory
-    }
-    else if (!strcmp(token, ">")){ //stdout
-      token = strsep(&curr, separator);
-      pointer[i] = token; //file to open
-      i++;
-      redirectout(pointers, token);
-    }
-    else if (!strcmp(token, "<")){ //stdin
-      token = strsep(&curr, separator);
-      pointer[i] = token; //file to open
-      i++;
-      redirectin(pointers, token);
-    }
+
     // printf("iteration %d | curr: %s | token: %s\n", i, curr, token);
     // i++;
   }
@@ -92,10 +66,41 @@ char ** parse_args( char * line , char * separator, int size ){
 
 // Function where the system command is executed
 void execArgs(char** args){
-    // make the child process
     int child;
     int status;
-
+    char *token;
+    while (*args){
+      token = malloc(200); //allocate memory for a token
+      strcpy(token, *args);
+      if (!strcmp(token, "cd")){
+        // printing current working directory
+        printf("%s\n", getcwd(s, 100));
+        // token = strsep(&curr, separator); //takes next arg for cd
+        // pointers[i] = token;
+        // i++;
+        chdir(token);
+        if (errno < 0){
+          printf("Failed chdir %s\n", strerror(errno));
+        }
+      }
+      else if (!strcmp(token, "exit")){
+        printf("Exiting...\n");
+        exit(0); //for some reason, this only exits if you remain in the current directory
+      }
+      else if (!strcmp(token, ">")){ //stdout
+        // token = strsep(&curr, separator);
+        // pointer[i] = token; //file to open
+        // i++;
+        redirectout(args, token);
+      }
+      else if (!strcmp(token, "<")){ //stdin
+        // token = strsep(&curr, separator);
+        // pointer[i] = token; //file to open
+        // i++;
+        redirectin(args, token);
+      }
+    }
+    // make the child process
     int f = fork();
 
     if (f < 0) {
