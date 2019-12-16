@@ -67,7 +67,6 @@ char ** parse_args( char * line , char * separator, int size ){
 
 // Function where the system command is executed
 void execArgs(char** args){ //args is already parsed by ';' and ' '
-    int child;
     int status;
     int i;
     char *token;
@@ -159,7 +158,7 @@ void redirectout(char **args, int *status, int prevlen){
 
 void forkit(char ** args, int * status){
   int f = fork();
-
+  int child;
   if (f < 0) {
       printf("Failed forking child: %s\n", strerror(errno));
       return;
