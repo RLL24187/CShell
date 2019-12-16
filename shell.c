@@ -82,6 +82,7 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
         printf("Current working directory: %s\n", getcwd(s, 100));
         argscpy++;
         strcpy(token, *argscpy);
+        printf("token: '%s'\n", token);
         if (!token || strcmp(token, "")){ // a directory wasn't given
           printf("Error: please input a directory\n");
         }
