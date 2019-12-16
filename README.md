@@ -56,3 +56,12 @@ char * gethome(); </br>
 
 void pipeit(char *cmd); </br>
 * makes a simple pipe given a command
+
+# Bugs
+* Currently doesn't work with double redirection
+* tr a-z A-Z < foo gives an error saying that there are too many arguments for tr
+* Pipes don't work
+
+# Extras
+* Functions work when you add extra ';'s or ' 's in between
+* You can easily cd into the home directory with 'cd ~'
