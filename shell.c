@@ -112,7 +112,6 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
       i++;
       argscpy++;
     }
-    free(argscpy);
     forkit(args, &status);
     return;
 }
