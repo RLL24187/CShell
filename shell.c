@@ -74,7 +74,7 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
     while (*argscpy){
       char *token = malloc(200); //allocate memory for a token
       strcpy(token, *argscpy);
-      printf("token: '%s'\n", token);
+      // printf("token: '%s'\n", token);
       if (!strcmp(token, "cd")){
         // printing current working directory
         char s[200];
@@ -101,12 +101,15 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
         exit(0);
       }
       else if (!strcmp(token, "<")){ //stdin
+        printf("redirecting in\n");
         redirectin(args, &status, i-1); //i-1 tells the number of args before '<'
       }
       else if (!strcmp(token, ">")){ //stdout
+        printf("redirecting out\n");
         redirectout(args, &status, i-1); //i-1 tells the number of args before '>'
       }
       else if (!strcmp(token, "|")){
+        printf("piping\n");
         pipeit(args, & status, i - 1);
       }
       i++;
@@ -119,7 +122,7 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
 void redirectin(char **args, int *status, int prevlen){
   char ** prevargs = malloc(2000); // args before <
   int i = 0;
-  while (i <= prevlen){ //adding the args to prevlen
+  while (i <= prevlen){ //adding the args to prevargs
     prevargs[i] = args[i];
     i++;
   }
@@ -149,7 +152,7 @@ void redirectin(char **args, int *status, int prevlen){
 void redirectout(char **args, int *status, int prevlen){
   char ** prevargs = malloc(2000); // args before <
   int i = 0;
-  while (i <= prevlen){ //adding the args to prevlen
+  while (i <= prevlen){ //adding the args to prevargs
     // printf("args[%d]: %s\n", i, args[i]);
     prevargs[i] = args[i];
     i++;
@@ -217,6 +220,8 @@ void pipeit(char **args, int * status, int prevlen){ //only takes a single pipe
   if (!out){
     printf("%s\n", strerror(errno));
   }
+  pclose(in);
+  pclose(out);
   // If mode is w, file descriptor STDIN_FILENO will be the readable end of the pipe when the child process is started.
   // The file descriptor fileno(stream) in the calling process, where stream is the stream pointer returned by popen(), will be the writable end of the pipe.
   return;
