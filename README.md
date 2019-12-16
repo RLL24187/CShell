@@ -5,6 +5,7 @@ Rachel Leong Period 10 </br>
 
 * Forks and executes commands
 * Parses multiple commands on one line using ';'
+
 # Attempted
 * Redirection didn't work
 * Pipes didn't work
@@ -12,6 +13,8 @@ Rachel Leong Period 10 </br>
 
 # Bugs
 * tr a-z A-Z < foo gives an error saying that there are too many arguments for tr
+* ls | wc says that it can't cd into "|"
+* cat > output says that ">" isn't a valid file or directory
 
 # Extras
 * Functions work when you add extra ';'s or ' 's in between
