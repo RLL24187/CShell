@@ -62,7 +62,7 @@ char ** parse_args( char * line , char * separator, int size ){
     // printf("iteration %d | curr: %s | token: %s\n", i, curr, token);
     // i++;
   }
-  pointers[i] = "\0";
+  // pointers[i] = "\0";
   return pointers;
 }
 
@@ -75,7 +75,7 @@ void execArgs(char** args){ //args is already parsed by ';' and ' '
       char *token = malloc(200); //allocate memory for a token
       printf("prev declare args[i]\n");
       strcpy(token, *argscpy);
-      printf("token: %s\n", token);
+      printf("token: '%s'\n", token);
       printf("after declare args[i]\n");
       if (!strcmp(token, "cd")){
         // printing current working directory
